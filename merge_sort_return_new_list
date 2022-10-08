@@ -1,0 +1,33 @@
+#This is the algorithm to return a new sorted list, not sorting the original list
+
+def join(left,right):
+        seq = []
+        while len(left) and len(right):
+            if left[0] < right[0]:
+                seq.append(left[0])
+                del(left[0])
+            elif right[0] < left[0]:
+                seq.append(right[0])
+                del(right[0])
+            else:
+                seq.append(right[0])
+                seq.append(left[0])
+                del(right[0])
+                del(left[0])
+        seq += left
+        seq += right
+        return seq
+
+def merge_sort(arr, l=0, r=0):
+    
+    L = len(arr)
+    #print(arr)
+    if L == 0 or L == 1:
+        return arr
+    elif L == 2:
+        return [min(arr), max(arr)]
+        
+    else:
+        left = arr[:L//2]
+        right = arr[L//2:]
+        return join(merge_sort(left), merge_sort(right)) #the join is for 2 list (2 halves) that has been sorted
